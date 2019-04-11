@@ -8,6 +8,7 @@
 
 import Foundation
 
-public protocol RadioButtonDelegate: class {
-    func radioButtonSelected(itemId: String)
+@objc public protocol RadioButtonDelegate: class {
+    @objc optional func radioButtonSelected(itemId: String)
+    @objc optional func radioButtonSelected(currentIdx: Int, colIdx: Int)
 }

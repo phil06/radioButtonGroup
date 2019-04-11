@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RadioButtonGroupHeaderView: UICollectionReusableView {
+class RadioButtonGroupHeaderView: UIView {
     
     var title: UILabel!
     
@@ -20,7 +20,11 @@ class RadioButtonGroupHeaderView: UICollectionReusableView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         layout()
-        //        fatalError("init(coder:) has not been implemented")
+    }
+    
+    convenience init(frame: CGRect, title: NSAttributedString) {
+        self.init(frame: frame)
+        self.title.attributedText = title
     }
     
     func layout() {

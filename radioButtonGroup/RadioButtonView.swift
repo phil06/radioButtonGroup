@@ -16,6 +16,9 @@ public class RadioButtonView: UIView {
 
     private let defaultViewPadding: CGFloat = 5
     private var contentViewConstraints: [NSLayoutConstraint]!
+    private var gesture: UITapGestureRecognizer!
+    
+    public weak var delegate: RadioButtonDelegate?
     
     var contentView: UIView!
     var labelId: String!
@@ -24,12 +27,33 @@ public class RadioButtonView: UIView {
         // For use in code
         super.init(frame: frame)
         setUpView()
+        setupGesture()
     }
     
     public required init?(coder aDecoder: NSCoder) {
         // For use in Interface Builder
         super.init(coder: aDecoder)
         setUpView()
+        setupGesture()
+    }
+    
+    private func setupGesture() {
+        radioButton.isUserInteractionEnabled = false
+        buttonLabel.isUserInteractionEnabled = false
+        
+        self.gesture = UITapGestureRecognizer(target: self, action: #selector(toggleButton))
+        self.gesture.cancelsTouchesInView = false
+        self.addGestureRecognizer(self.gesture)
+    }
+    
+    public func removeGesture() {
+        
+        radioButton.isUserInteractionEnabled = true
+        buttonLabel.isUserInteractionEnabled = true
+
+        self.removeGestureRecognizer(self.gesture)
+        
+        
     }
     
     private func setUpView() {
@@ -45,13 +69,7 @@ public class RadioButtonView: UIView {
         setEdgeInsets(inset: UIEdgeInsets(top: defaultViewPadding, left: defaultViewPadding, bottom: defaultViewPadding, right: defaultViewPadding))
         
         buttonLabel.text = ""
-        
-        radioButton.isUserInteractionEnabled = false
-        buttonLabel.isUserInteractionEnabled = false
-
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleButton))
-        tapGesture.cancelsTouchesInView = false
-        self.addGestureRecognizer(tapGesture)
+        backgroundColor = UIColor.clear
     }
     
     public func setEdgeInsets(inset: UIEdgeInsets?) {
@@ -103,6 +121,7 @@ public class RadioButtonView: UIView {
     
     @objc func toggleButton() {
         tapView(val: nil)
+        delegate?.radioButtonSelected!(itemId: self.labelId)
     }
     
     func tapView(val: Bool?) {
