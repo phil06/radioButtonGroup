@@ -18,7 +18,20 @@ public class RadioButtonGroupItemModel: Codable {
     }
 }
 
-public class RadioButtonItemModel: Codable {
+public class RadioButtonItemModel: Codable, Equatable {
+    
+    public static func == (lhs: RadioButtonItemModel, rhs: RadioButtonItemModel) -> Bool {
+        if lhs.id != rhs.id {
+            return false
+        }
+        
+        if lhs.name != rhs.name {
+            return false
+        }
+        
+        return true
+    }
+    
     var id: String
     var name: String
     

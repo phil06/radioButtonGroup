@@ -30,4 +30,7 @@ public class RadioButtonGroupParentView: UIView {
     /* 한 행에 표현할 아이템 갯수 */
     public var itemPerRow: Int!
     
+    /* 아이템 그룹 영역 inset */
+    public var sectionInset: UIEdgeInsets!
+    
 }

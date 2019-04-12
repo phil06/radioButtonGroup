@@ -46,17 +46,24 @@ public class RadioButtonGroupView: RadioButtonGroupParentView {
                 views.append(RadioButtonGroupHeaderView(frame: CGRect(x: 0, y: 0, width: RadioButtonGroupView.screenWidth, height: headerHeight),
                                                         title: NSMutableAttributedString(string: row.name, attributes: [NSAttributedString.Key.font: font,
                                                                                                                         NSAttributedString.Key.foregroundColor: foreGroundColor])))
-                
-                let chunks = row.items.splitBy(subSize: self.itemPerRow)
-                
-                for col in chunks {
-                    let subView = RadioButtonGroupSubView(frame: CGRect.zero, prop: self, data: col)
-                    subView.delegate = self
-                    subView.currentIdx = views.count
-                    views.append(subView)
-                }
-            }
+            } 
             
+            let chunks = row.items.splitBy(subSize: self.itemPerRow)
+            
+            for col in chunks {
+                var viewRange = RadioButtonGroupSubView.RANGE_TYPE.middle
+                
+                if col == chunks.first! {
+                    viewRange = RadioButtonGroupSubView.RANGE_TYPE.first
+                } else if col == chunks.last! {
+                    viewRange = RadioButtonGroupSubView.RANGE_TYPE.last
+                }
+                
+                let subView = RadioButtonGroupSubView(frame: CGRect.zero, prop: self, data: col, rangeType: viewRange)
+                subView.delegate = self
+                subView.currentIdx = views.count
+                views.append(subView)
+            }
             
         }
         
@@ -65,6 +72,7 @@ public class RadioButtonGroupView: RadioButtonGroupParentView {
     
     private func initLayout() {
         itemInsets = itemInsets ?? UIEdgeInsets.zero
+        sectionInset = sectionInset ?? UIEdgeInsets.zero
     }
 
     private func layoutViews() {
@@ -75,7 +83,6 @@ public class RadioButtonGroupView: RadioButtonGroupParentView {
         
         stackView = UIStackView(arrangedSubviews: stackSubViews)
         stackView.axis = .vertical
-        stackView.distribution = .fillEqually
         stackView.alignment = .fill
         stackView.spacing = 0
         addSubview(stackView)
@@ -123,7 +130,4 @@ extension RadioButtonGroupView: RadioButtonDelegate {
             delegate?.radioButtonSelected?(itemId: id)
         }
     }
-
-    
-    
 }

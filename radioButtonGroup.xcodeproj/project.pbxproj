@@ -82,13 +82,13 @@
 				2D3B26F22244BAF4006D1B59 /* Info.plist */,
 				2D3B26FD2244BFFB006D1B59 /* RadioButtonView.xib */,
 				2D3B26FF2244C00A006D1B59 /* RadioButtonView.swift */,
+				2D15186D225F0D1600D8B9DE /* RadioButtonGroupParentView.swift */,
 				2D22B2AA224A188300731558 /* RadioButtonGroupView.swift */,
 				2D151869225ED1CC00D8B9DE /* RadioButtonGroupSubView.swift */,
 				2D21B8AD2251D1B700CB2D18 /* RadioButtonGroupHeaderView.swift */,
 				2D22B2AE224A249000731558 /* ItemModelVO.swift */,
 				2D21B8B42255A1D300CB2D18 /* RadioButtonDelegate.swift */,
 				2D15186B225EE54F00D8B9DE /* ExtensionArray.swift */,
-				2D15186D225F0D1600D8B9DE /* RadioButtonGroupParentView.swift */,
 			);
 			path = radioButtonGroup;
 			sourceTree = "<group>";
