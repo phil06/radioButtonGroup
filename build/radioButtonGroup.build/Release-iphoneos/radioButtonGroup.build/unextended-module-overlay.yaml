@@ -3,7 +3,7 @@
   'case-sensitive': 'false',
   'roots': [{
     'type': 'directory',
-    'name': "/Users/nhnent/Library/Developer/Xcode/DerivedData/RadioButtonFrameworkTest-dgbsdfbxbmcpftbrkkntbrwjjkkf/Build/Products/Release-iphoneos/radioButtonGroup.framework/Modules"
+    'name': "/Users/nhnent/Library/Developer/Xcode/DerivedData/radioButtonGroup-exkndzhjsxyvtncveobxnlgquvdh/Build/Products/Release-iphoneos/radioButtonGroup.framework/Modules"
     'contents': [{
       'type': 'file',
       'name': "module.modulemap",

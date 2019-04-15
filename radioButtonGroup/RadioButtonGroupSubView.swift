@@ -16,6 +16,7 @@ class RadioButtonGroupSubView: RadioButtonGroupParentView {
     weak var delegate: RadioButtonDelegate?
     
     var currentIdx: Int!
+    var sectionIdx: Int!
  
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -96,7 +97,7 @@ extension RadioButtonGroupSubView: RadioButtonDelegate {
         for view in self.stackView.arrangedSubviews.enumerated() {
             let button = view.element as! RadioButtonView
             if button.labelId == itemId {
-                delegate?.radioButtonSelected!(currentIdx: self.currentIdx, colIdx: view.offset)
+                delegate?.radioButtonSelected!(currentIdx: self.currentIdx, sectionIdx: self.sectionIdx, colIdx: view.offset)
                 return
             }
         }

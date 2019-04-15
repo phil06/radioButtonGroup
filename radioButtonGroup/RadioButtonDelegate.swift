@@ -11,4 +11,5 @@ import Foundation
 @objc public protocol RadioButtonDelegate: class {
     @objc optional func radioButtonSelected(itemId: String)
     @objc optional func radioButtonSelected(currentIdx: Int, colIdx: Int)
+    @objc optional func radioButtonSelected(currentIdx: Int, sectionIdx: Int, colIdx: Int)
 }

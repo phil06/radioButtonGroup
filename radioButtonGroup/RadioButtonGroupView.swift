@@ -14,6 +14,8 @@ public class RadioButtonGroupView: RadioButtonGroupParentView {
     
     private var stackView: UIStackView!
     private var stackSubViews: [UIView]!
+    
+    private var selectedSection: Int!
     private var selectedItemRow: Int!
     private var selectedItemCol: Int!
     
@@ -55,10 +57,11 @@ public class RadioButtonGroupView: RadioButtonGroupParentView {
             
             var sectionGroupViews: [UIView] = []
             
-            for col in chunks {
-                let subView = RadioButtonGroupSubView(frame: CGRect.zero, prop: self, data: col)
+            for item in chunks.enumerated() {
+                let subView = RadioButtonGroupSubView(frame: CGRect.zero, prop: self, data: item.element)
                 subView.delegate = self
-                subView.currentIdx = views.count
+                subView.currentIdx = item.offset
+                subView.sectionIdx = views.count
                 sectionGroupViews.append(subView)
             }
             
@@ -114,32 +117,33 @@ public class RadioButtonGroupView: RadioButtonGroupParentView {
     }
 
     public func getSelectedItem() -> String? {
-        guard selectedItemRow != nil, selectedItemCol != nil else {
+        guard selectedItemRow != nil, selectedItemCol != nil, selectedSection != nil else {
             return nil
         }
         
-        let sub = self.stackView.arrangedSubviews[selectedItemRow] as! RadioButtonGroupSubView
-        if let id = sub.getSelectedView(idx: selectedItemCol) {
-            return id
-        }
-        return nil
+        let stack = self.stackView.arrangedSubviews[selectedSection] as! UIStackView
+        let sub = stack.arrangedSubviews[selectedItemRow] as! RadioButtonGroupSubView
+        return sub.getSelectedView(idx: selectedItemCol)
     }
 
 }
 
 extension RadioButtonGroupView: RadioButtonDelegate {
-    public func radioButtonSelected(currentIdx: Int, colIdx: Int) {
-        //기존에 선택된걸 해제
-        if let row = selectedItemRow, let col = selectedItemCol {
-            let sub = self.stackView.arrangedSubviews[row] as! RadioButtonGroupSubView
+    
+    public func radioButtonSelected(currentIdx: Int, sectionIdx: Int, colIdx: Int) {
+        if let row = selectedItemRow, let col = selectedItemCol, let section = selectedSection {
+            let stack = self.stackView.arrangedSubviews[section] as! UIStackView
+            let sub = stack.arrangedSubviews[row] as! RadioButtonGroupSubView
             sub.deselectSubViews(idx: col)
         }
-
+        
         selectedItemCol = colIdx
         selectedItemRow = currentIdx
+        selectedSection = sectionIdx
         
         if let id = getSelectedItem() {
             delegate?.radioButtonSelected?(itemId: id)
         }
     }
+    
 }
