@@ -45,15 +45,24 @@ import radioButtonGroup
   ```
   ### 속성
   ```swift
+        groupView.backgroundColor = UIColor.white
         groupView.buttonImageNORMAL = UIImage(named: "btn_radio_off")!
         groupView.buttonImageSELECTED = UIImage(named: "btn_radio_on")!
-        groupView.itemPerRow = 2
+        
         groupView.itemInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        groupView.useSectionHeaderTitle = false
-        groupView.headerHeight = 30
         groupView.font = UIFont.systemFont(ofSize: 13)
         groupView.foreGroundColor = UIColor.black
+                
+        groupView.useSectionHeaderTitle = true
+        groupView.headerInset = UIEdgeInsets(top: 18, left: 11, bottom: 0, right: 0)
+        groupView.headerFont = UIFont.systemFont(ofSize: 16)
+        groupView.headerForeGroundColor = UIColor.darkGray
+
+        groupView.itemPerRow = 2
         groupView.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        groupView.sectionBorder = [.bottom]
+        groupView.sectionBorderWidth = ApplicationConstants.onePointBorder
+        groupView.sectionBorderColor = UIColor(hex: 0xe5e5e5, alpha: 1)
         
         groupView.delegate = self
         
