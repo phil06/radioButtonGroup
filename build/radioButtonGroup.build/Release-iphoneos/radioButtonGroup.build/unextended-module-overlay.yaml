@@ -1,0 +1,13 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/nhnent/Library/Developer/Xcode/DerivedData/RadioButtonFrameworkTest-dgbsdfbxbmcpftbrkkntbrwjjkkf/Build/Products/Release-iphoneos/radioButtonGroup.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/nhnent/Git/private/radio-button-framework/build/radioButtonGroup.build/Release-iphoneos/radioButtonGroup.build/unextended-module.modulemap",
+    }]
+  }]
+}

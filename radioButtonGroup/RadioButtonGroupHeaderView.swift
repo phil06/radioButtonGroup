@@ -11,38 +11,49 @@ import Foundation
 class RadioButtonGroupHeaderView: UIView {
     
     var title: UILabel!
+    var layoutConstraints: [NSLayoutConstraint]!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
+        self.setConstraint(inset: UIEdgeInsets.zero)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         layout()
+        self.setConstraint(inset: UIEdgeInsets.zero)
     }
     
-    convenience init(frame: CGRect, title: NSAttributedString) {
+    convenience init(frame: CGRect, title: NSAttributedString, inset: UIEdgeInsets) {
         self.init(frame: frame)
         self.title.attributedText = title
+        self.setConstraint(inset: inset)
     }
     
     func layout() {
         title = UILabel(frame: self.bounds)
         addSubview(title)
-        
+    }
+    
+    private func setConstraint(inset: UIEdgeInsets) {
         title.translatesAutoresizingMaskIntoConstraints = false
         
+        if let const = layoutConstraints {
+            NSLayoutConstraint.deactivate(const)
+        }
+        
         let viewsDictionary:[String : Any] = ["title":title]
-        let stackView_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[title]-0-|",
-                                                         options: NSLayoutConstraint.FormatOptions(rawValue: 0),
-                                                         metrics: nil,
+        let stackView_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-left-[title]-right-|",
+                                                         metrics: ["left": inset.left, "right": inset.right],
                                                          views: viewsDictionary)
-        let stackView_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[title(height)]-0-|",
-                                                         options: NSLayoutConstraint.FormatOptions(rawValue:0),
-                                                         metrics: ["height": self.bounds.height],
+        let stackView_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-top-[title]-bottom-|",
+                                                         metrics: ["top": inset.top, "bottom": inset.bottom],
                                                          views: viewsDictionary)
-        NSLayoutConstraint.activate(stackView_H + stackView_V)
+
+        layoutConstraints = stackView_H + stackView_V
+        
+        NSLayoutConstraint.activate(layoutConstraints)
     }
     
     func setTitle(title: String) {

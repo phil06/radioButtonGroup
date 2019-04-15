@@ -12,8 +12,12 @@ public class RadioButtonGroupParentView: UIView {
     
     /* 아이템 그룹 라벨 노출 여부 */
     public var useSectionHeaderTitle: Bool!
-    /* 아이템 그룹 라벨 높이 */
-    public var headerHeight: CGFloat!
+    /* 아이템 그룹 라벨 텍스트 타입 */
+    public var headerFont: UIFont!
+    /* 아이템 그룹 라벨 텍스트 색상 */
+    public var headerForeGroundColor: UIColor!
+    /* 아이템 그룹 라벨 영역 inset */
+    public var headerInset: UIEdgeInsets!
     
     /* 라디오버튼 이미지 (NORMAL) */
     public var buttonImageNORMAL: UIImage!
@@ -32,5 +36,11 @@ public class RadioButtonGroupParentView: UIView {
     
     /* 아이템 그룹 영역 inset */
     public var sectionInset: UIEdgeInsets!
+    /* 아이템 그룹 영역 경계선 설정 여부 */
+    public var sectionBorder: [UIRectEdge]!
+    /* 아이템 그룹 영역 경계선 두께 */
+    public var sectionBorderWidth: CGFloat!
+    /* 아이템 그룹 영역 경계선 색상 */
+    public var sectionBorderColor: UIColor!
     
 }

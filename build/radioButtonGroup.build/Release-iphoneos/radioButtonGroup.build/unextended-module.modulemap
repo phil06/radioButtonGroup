@@ -1,0 +1,10 @@
+framework module radioButtonGroup {
+  umbrella header "radioButtonGroup.h"
+
+  export *
+  module * { export * }
+}
+
+module radioButtonGroup.__Swift {
+    exclude header "radioButtonGroup-Swift.h"
+}

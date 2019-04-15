@@ -28,9 +28,10 @@ public class RadioButtonGroupView: RadioButtonGroupParentView {
     }
     
     public func bindModel(data: [RadioButtonGroupItemModel]) {
+        initLayout()
+        
         self.stackSubViews = constructSubViews(data: data)
         
-        initLayout()
         layoutViews()
         
         layoutIfNeeded()
@@ -43,28 +44,36 @@ public class RadioButtonGroupView: RadioButtonGroupParentView {
         for row in data {
             
             if useSectionHeaderTitle ?? false {
-                views.append(RadioButtonGroupHeaderView(frame: CGRect(x: 0, y: 0, width: RadioButtonGroupView.screenWidth, height: headerHeight),
-                                                        title: NSMutableAttributedString(string: row.name, attributes: [NSAttributedString.Key.font: font,
-                                                                                                                        NSAttributedString.Key.foregroundColor: foreGroundColor])))
+                //CGRect(x: 0, y: 0, width: RadioButtonGroupView.screenWidth, height: headerHeight)
+                views.append(RadioButtonGroupHeaderView(frame: CGRect.zero,
+                                                        title: NSMutableAttributedString(string: row.name, attributes: [NSAttributedString.Key.font: headerFont,
+                                                                                                                        NSAttributedString.Key.foregroundColor: headerForeGroundColor]),
+                                                        inset: self.headerInset))
             } 
             
             let chunks = row.items.splitBy(subSize: self.itemPerRow)
             
+            var sectionGroupViews: [UIView] = []
+            
             for col in chunks {
-                var viewRange = RadioButtonGroupSubView.RANGE_TYPE.middle
-                
-                if col == chunks.first! {
-                    viewRange = RadioButtonGroupSubView.RANGE_TYPE.first
-                } else if col == chunks.last! {
-                    viewRange = RadioButtonGroupSubView.RANGE_TYPE.last
-                }
-                
-                let subView = RadioButtonGroupSubView(frame: CGRect.zero, prop: self, data: col, rangeType: viewRange)
+                let subView = RadioButtonGroupSubView(frame: CGRect.zero, prop: self, data: col)
                 subView.delegate = self
                 subView.currentIdx = views.count
-                views.append(subView)
+                sectionGroupViews.append(subView)
             }
             
+            let stackView = UIStackView(arrangedSubviews: sectionGroupViews)
+            stackView.axis = .vertical
+            stackView.spacing = 0
+            stackView.layoutMargins = sectionInset
+            stackView.isLayoutMarginsRelativeArrangement = true
+            
+            //section border 설정 추가하기
+            if sectionBorder.count > 0 {
+                stackView.addBorder(arr_edge: sectionBorder, color: sectionBorderColor, thickness: sectionBorderWidth)
+            }
+            
+            views.append(stackView)
         }
         
         return views
@@ -73,6 +82,9 @@ public class RadioButtonGroupView: RadioButtonGroupParentView {
     private func initLayout() {
         itemInsets = itemInsets ?? UIEdgeInsets.zero
         sectionInset = sectionInset ?? UIEdgeInsets.zero
+        sectionBorder = sectionBorder ?? []
+        headerInset = headerInset ?? UIEdgeInsets.zero
+        backgroundColor = self.backgroundColor ?? UIColor.clear
     }
 
     private func layoutViews() {

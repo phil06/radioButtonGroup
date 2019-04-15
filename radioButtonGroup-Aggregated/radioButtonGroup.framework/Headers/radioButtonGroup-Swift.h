@@ -167,7 +167,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import CoreGraphics;
-@import Foundation;
 @import UIKit;
 #endif
 
@@ -186,27 +185,32 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+
+SWIFT_PROTOCOL("_TtP16radioButtonGroup19RadioButtonDelegate_")
+@protocol RadioButtonDelegate
+@optional
+- (void)radioButtonSelectedWithItemId:(NSString * _Nonnull)itemId;
+- (void)radioButtonSelectedWithCurrentIdx:(NSInteger)currentIdx colIdx:(NSInteger)colIdx;
+@end
+
 @class NSCoder;
 
+SWIFT_CLASS("_TtC16radioButtonGroup26RadioButtonGroupParentView")
+@interface RadioButtonGroupParentView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 SWIFT_CLASS("_TtC16radioButtonGroup20RadioButtonGroupView")
-@interface RadioButtonGroupView : UIView
+@interface RadioButtonGroupView : RadioButtonGroupParentView
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @end
 
-@class UICollectionView;
-@class UICollectionReusableView;
-@class UICollectionViewLayout;
-@class UICollectionViewCell;
 
-@interface RadioButtonGroupView (SWIFT_EXTENSION(radioButtonGroup)) <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView * _Nonnull)collectionView SWIFT_WARN_UNUSED_RESULT;
-- (NSInteger)collectionView:(UICollectionView * _Nonnull)collectionView numberOfItemsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-- (UICollectionReusableView * _Nonnull)collectionView:(UICollectionView * _Nonnull)collectionView viewForSupplementaryElementOfKind:(NSString * _Nonnull)kind atIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
-- (CGSize)collectionView:(UICollectionView * _Nonnull)collectionView layout:(UICollectionViewLayout * _Nonnull)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
-- (UICollectionViewCell * _Nonnull)collectionView:(UICollectionView * _Nonnull)collectionView cellForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
-- (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
-- (void)collectionView:(UICollectionView * _Nonnull)collectionView didDeselectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+@interface RadioButtonGroupView (SWIFT_EXTENSION(radioButtonGroup)) <RadioButtonDelegate>
+- (void)radioButtonSelectedWithCurrentIdx:(NSInteger)currentIdx colIdx:(NSInteger)colIdx;
 @end
 
 

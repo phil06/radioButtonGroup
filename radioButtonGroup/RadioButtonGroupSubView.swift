@@ -9,17 +9,9 @@
 import Foundation
 
 class RadioButtonGroupSubView: RadioButtonGroupParentView {
-    
-    enum RANGE_TYPE {
-        case first
-        case last
-        case middle
-    }
-    
+
     private var stackView: UIStackView!
     private var stackSubViews: [UIView]!
-    private var rangeType: RANGE_TYPE!
-    
     
     weak var delegate: RadioButtonDelegate?
     
@@ -33,7 +25,7 @@ class RadioButtonGroupSubView: RadioButtonGroupParentView {
         super.init(coder: aDecoder)
     }
     
-    convenience init(frame: CGRect, prop: RadioButtonGroupParentView, data: [RadioButtonItemModel], rangeType: RANGE_TYPE) {
+    convenience init(frame: CGRect, prop: RadioButtonGroupParentView, data: [RadioButtonItemModel]) {
         self.init(frame: frame)
         self.stackSubViews = []
         
@@ -42,8 +34,6 @@ class RadioButtonGroupSubView: RadioButtonGroupParentView {
         self.buttonImageNORMAL = prop.buttonImageNORMAL
         self.buttonImageSELECTED = prop.buttonImageSELECTED
         self.itemInsets = prop.itemInsets
-        self.sectionInset = prop.sectionInset
-        self.rangeType = rangeType
         
         self.bindModel(data: data)
     }
@@ -57,15 +47,16 @@ class RadioButtonGroupSubView: RadioButtonGroupParentView {
         addSubview(stackView)
   
         let viewsDictionary:[String : Any] = ["stackView":stackView]
-        let stackView_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-left-[stackView]-right-|",
-                                                         metrics: ["left": sectionInset.left, "right": sectionInset.right],
+        let stackView_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[stackView]-0-|",
+                                                         metrics: nil,
                                                          views: viewsDictionary)
-        let stackView_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-top-[stackView]-bottom-|",
-                                                         metrics: ["top": self.rangeType == RANGE_TYPE.first ? sectionInset.top : 0,
-                                                                   "bottom": self.rangeType == RANGE_TYPE.last ? sectionInset.bottom : 0],
+        let stackView_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[stackView]-0-|",
+                                                         metrics: nil,
                                                          views: viewsDictionary)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate(stackView_H + stackView_V)
+        
+        
     }
     
 
