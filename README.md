@@ -45,6 +45,8 @@ import radioButtonGroup
   ```
   ### 속성
   ```swift
+        var groupView: RadioButtonGroupView
+        ...
         groupView.backgroundColor = UIColor.white
         groupView.buttonImageNORMAL = UIImage(named: "btn_radio_off")!
         groupView.buttonImageSELECTED = UIImage(named: "btn_radio_on")!
