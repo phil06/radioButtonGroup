@@ -43,4 +43,7 @@ public class RadioButtonGroupParentView: UIView {
     /* 아이템 그룹 영역 경계선 색상 */
     public var sectionBorderColor: UIColor!
     
+    /* 기본으로 선택될 아이템 아이디 */
+    public var defaultId: String!
+    
 }

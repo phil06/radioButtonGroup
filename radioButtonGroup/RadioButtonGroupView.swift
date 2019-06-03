@@ -34,8 +34,6 @@ public class RadioButtonGroupView: RadioButtonGroupParentView {
         
         self.stackSubViews = constructSubViews(data: data)
         
-        layoutViews()
-        
         layoutIfNeeded()
     }
     
@@ -62,6 +60,7 @@ public class RadioButtonGroupView: RadioButtonGroupParentView {
                 subView.delegate = self
                 subView.currentIdx = item.offset
                 subView.sectionIdx = views.count
+                subView.setCheckSelectView()
                 sectionGroupViews.append(subView)
             }
             
@@ -89,8 +88,8 @@ public class RadioButtonGroupView: RadioButtonGroupParentView {
         headerInset = headerInset ?? UIEdgeInsets.zero
         backgroundColor = self.backgroundColor ?? UIColor.clear
     }
-
-    private func layoutViews() {
+    
+    public override func sizeToFit() {
         guard buttonImageNORMAL != nil, buttonImageSELECTED != nil else {
             debugPrint("필수 항목 누락")
             return
@@ -117,6 +116,10 @@ public class RadioButtonGroupView: RadioButtonGroupParentView {
     }
 
     public func getSelectedItem() -> String? {
+        guard stackView != nil else {
+            return nil
+        }
+        
         guard selectedItemRow != nil, selectedItemCol != nil, selectedSection != nil else {
             return nil
         }

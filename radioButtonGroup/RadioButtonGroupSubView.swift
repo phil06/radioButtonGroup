@@ -17,6 +17,7 @@ class RadioButtonGroupSubView: RadioButtonGroupParentView {
     
     var currentIdx: Int!
     var sectionIdx: Int!
+    var defaultOnIdx: Int?
  
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,6 +36,7 @@ class RadioButtonGroupSubView: RadioButtonGroupParentView {
         self.buttonImageNORMAL = prop.buttonImageNORMAL
         self.buttonImageSELECTED = prop.buttonImageSELECTED
         self.itemInsets = prop.itemInsets
+        self.defaultId = prop.defaultId
         
         self.bindModel(data: data)
     }
@@ -56,8 +58,6 @@ class RadioButtonGroupSubView: RadioButtonGroupParentView {
                                                          views: viewsDictionary)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate(stackView_H + stackView_V)
-        
-        
     }
     
 
@@ -73,6 +73,13 @@ class RadioButtonGroupSubView: RadioButtonGroupParentView {
             view.setEdgeInsets(inset: self.itemInsets ?? UIEdgeInsets.zero)
             view.delegate = self
             
+            
+            
+            if defaultId == item.id {
+                view.tapView(val: true)
+                defaultOnIdx = stackSubViews.count
+                debugPrint("디폴트 값이 설정되어 있으므로 설정해줌")
+            }
             stackSubViews.append(view)
         }
         
@@ -87,6 +94,12 @@ class RadioButtonGroupSubView: RadioButtonGroupParentView {
     public func getSelectedView(idx: Int) -> String? {
         let button = self.stackView.arrangedSubviews[idx] as! RadioButtonView
         return button.labelId
+    }
+    
+    public func setCheckSelectView() {
+        if let idx = defaultOnIdx {
+            delegate?.radioButtonSelected!(currentIdx: self.currentIdx, sectionIdx: self.sectionIdx, colIdx: idx)
+        }
     }
     
 }
