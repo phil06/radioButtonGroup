@@ -73,6 +73,9 @@ import radioButtonGroup
         
         groupView.bindModel(data: [RadioButtonGroupItemModel(name: "야구", items: itemModel1), RadioButtonGroupItemModel(name: "샤이니", items: itemModel2),
             RadioButtonGroupItemModel(name: "우리나라", items: itemModel3)])
+            
+        //레이아웃 정렬해줌
+        groupView.sizeToFit()
   ```
   ### 선택한 라디오 버튼의 아이디를 가져올때
   ```swift
