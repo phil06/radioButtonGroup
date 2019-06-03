@@ -66,6 +66,9 @@ import radioButtonGroup
         groupView.sectionBorderWidth = ApplicationConstants.onePointBorder
         groupView.sectionBorderColor = UIColor(hex: 0xe5e5e5, alpha: 1)
         
+        // 기본적으로 선택되어 노출될 항목 설정
+        groupView.defaultId = "RadioButtonItemModel.id value"
+        
         groupView.delegate = self
         
         groupView.bindModel(data: [RadioButtonGroupItemModel(name: "야구", items: itemModel1), RadioButtonGroupItemModel(name: "샤이니", items: itemModel2),
