@@ -42,7 +42,7 @@ public class RadioButtonView: UIView {
         buttonLabel.isUserInteractionEnabled = false
         
         self.gesture = UITapGestureRecognizer(target: self, action: #selector(toggleButton))
-        self.gesture.cancelsTouchesInView = false
+        self.gesture.cancelsTouchesInView = true
         self.addGestureRecognizer(self.gesture)
     }
     
@@ -120,6 +120,10 @@ public class RadioButtonView: UIView {
     }
     
     @objc func toggleButton() {
+        if self.radioButton.isSelected {
+            return
+        }
+        
         tapView(val: nil)
         delegate?.radioButtonSelected!(itemId: self.labelId)
     }
